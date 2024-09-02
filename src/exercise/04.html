@@ -6,18 +6,48 @@
   <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     // 🐨 Make a function called `message` which returns the JSX we want to share
+    function Message({subject, greeting}) {
+      console.log(subject)
+      console.log(greeting)
+      return (
+        <div className='message'>
+          {greeting}, {subject}
+        </div>
+      )
+    }
 
+    // const PropTypes = {
+    //   string(props, propName, componentName) {
+    //     if (typeof props[propName] !== 'string') {
+    //       return new Error(`${propName} should be of type string, got ${typeof props[propName]}`)
+    //     }
+    //   },
+    // }
+
+    Message.propTypes = {
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired
+    }
     // 🐨 use that function in place of the divs below with:
-    // 💰 {message({children: 'Hello World'})} {message({children: 'Goodbye World'})}
+    // 💰  {message({children: 'Goodbye World'})}
+    // const greeting = React.createElement(message, {children: 'Hello World'})
+    // const bye = React.createElement(message, {children: 'Bye World'})
+    // const element = (
+    //   <div className="container">
+    //     <Message subject='Udon' greeting='Hello' />
+    //   </div>
+    // )
+  
+    // use fragment
     const element = (
-      <div className="container">
-        <div className="message">Hello World</div>
-        <div className="message">Goodbye World</div>
-      </div>
+      <>
+        <Message subject='World' greeting='Hello' />
+        <Message subject='World' greeting='Bye' />
+      </>
     )
-
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
     ReactDOM.createRoot(document.getElementById('root')).render(element)
   </script>
